@@ -6,4 +6,4 @@ const PORT = 3000;
 
 app.use(json());
 
-app.listen(PORT, () => console.log(`Auth Service Listening on Port ${PORT}`));
+app.listen(PORT, () => console.log(`Auth Service Listening on Port ${PORT} Test Skaffold`));
