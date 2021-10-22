@@ -8,19 +8,22 @@ This Project Related to Microservice A Quick Start To Go From
 - Option #2
 - Option #3
 
-### JWT Vs Cookie
+<br/>
+
+### JWT & Cookie
 
 JWT and Cookie Both are two Different Things Because when we are going to use
 **Cookie** we're Going to Store some kind of Encoded Token Inside it so user
-cannot access these information but JWT Is Different
+cannot access these information but **JWT** Is Different we are Encoded The Payload it Self
 
-##### Let's Start Explain More Deeper about JWT & Cookie
+### Let's Start Explain More Deeper about JWT & Cookie
 
 <!--ts-->
 
 - [What is Cookie](#what-is-cookie)
 - [What is JWT](#what-is-jwt)
 - [JWT Vs Cookie](#jwt-vs-cookie)
+- [Microservices-Auth-Mechanism-Requirements And Why JWT](#microservices-auth-mechanism-requirements-and-why-jwt)
 <!--te-->
 
 ### What is Cookie
@@ -49,6 +52,25 @@ There is Different Ways to Store The JWT Token Either in the **\*Request Headers
 Json web Token on the other hand are all about the **Authentication & Authorization** that is what they're intended to Serve we can store any form of data we want also we manage JWT Manually not like Cookie Managed by Browser
 
 ![JWT Storing Mechanism](public/JWTvsCookie.png)
+
+### Microservices-Auth-Mechanism-Requirements And Why JWT
+
+When it Comes To Microservices We Must take Care About alot Of Requirements We Will need To Cover
+
+- Must be Able to Tell us Details About a User
+- Must be able to handle authorization information
+- Must Have a built-in way to Expire or Invalidate itself
+- Must be easily understood between Different Language
+- Mustn't Require some kind of Backing Data store on Server
+
+So After all these Requirements JWT Is the best Option Because
+
+1. JWT Handles Authorization Very Well
+2. JWT Expire after time But **Cookie** Expiration Handled by The Browser On The Other side JWT Encoded the Expiration Date it self
+3. JWT Have Fully Support to all types of Languages
+4. JWT Doesn't Require any kind of Backing Store to Identify Cookie
+
+![MicroservicesAuth](public/MicroservicesAuth.png)
 
 ### Required Staff
 
