@@ -79,3 +79,9 @@ So After all these Requirements JWT Is the best Option Because
 ```
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=JWT_SECRET_DEVELOPMENT
 ```
+
+- To Run Project
+
+```
+skaffold dev
+```
