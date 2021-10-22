@@ -17,7 +17,7 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false, // Disable Encryption For JWT Because the encryption algorithm is not one for all languages
-    secure: true,
+    secure: true, // Make Sure that SSL Certf Verification off at Post Man
   })
 );
 
@@ -33,6 +33,10 @@ app.all('*', async (req: Request, res: Response) => {
 app.use(errorHandler);
 
 const startServer = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY Must Be Defined');
+  }
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
     console.log('DB Connected Successfully ');

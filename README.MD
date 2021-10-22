@@ -37,12 +37,10 @@ When user Send Request to Server The Server Sends a Response Back over to the Br
 In JWT We are going to take some arbitrary piece of information that we refer to as the **payload** so this can some kind of object have id or name or whatever and
 take this payload pass it to **JWT Creation Algorithm** and we get the token we want
 and later on we can use **Decoding Algorithm** And extract the original Object
-
-![JWT Mechanism](public/JWT.png)
+<br/>
 
 There is Different Ways to Store The JWT Token Either in the **\*Request Headers** as key Value of Sending it Through the **Request Body** Or Even Store it as **cookie**
-
-![JWT Storing Mechanism](public/JWTStoreWays.png)
+![JWT Mechanism](public/JWT.png) ![JWT Storing Mechanism](public/JWTStoreWays.png)
 
 ### JWT Vs Cookie
 
@@ -76,3 +74,8 @@ So After all these Requirements JWT Is the best Option Because
 
 - Docker & minikube, Kubectl
 - Ingress Addon Through [Kubernetes-Ingress](https://kubernetes.github.io/ingress-nginx/deploy)
+- Setup Secret By Run
+
+```
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=JWT_SECRET_DEVELOPMENT
+```
