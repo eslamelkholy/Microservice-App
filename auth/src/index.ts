@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session';
 
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
@@ -11,7 +12,14 @@ import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/NotFoundError';
 
 const app = express();
+app.set('trust proxy', true); // Trust K8S Ingress Nginx Proxy
 app.use(json());
+app.use(
+  cookieSession({
+    signed: false, // Disable Encryption For JWT Because the encryption algorithm is not one for all languages
+    secure: true,
+  })
+);
 
 app.use(currentUserRouter);
 app.use(signinRouter);
