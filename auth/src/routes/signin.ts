@@ -24,7 +24,7 @@ router.post(
     }
 
     const passwordMatch = await Password.compate(existingUser.password, password);
-    if (!existingUser) {
+    if (!passwordMatch) {
       throw new BadRequestError('Invalid Credientials');
     }
 
