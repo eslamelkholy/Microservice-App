@@ -1,27 +1,21 @@
 import mongoose from 'mongoose';
 import { Password } from '../services/password';
 
-/**
- * An Interface that Describes the Properties
- * that are required to create new User
- */
+// An interface that describes the properties
+// that are requried to create a new User
 interface UserAttrs {
   email: string;
   password: string;
 }
 
-/**
- * An Interface that Describes the Properties
- * that a User Model Has
- */
+// An interface that describes the properties
+// that a User Model has
 interface UserModel extends mongoose.Model<UserDoc> {
   build(attrs: UserAttrs): UserDoc;
 }
 
-/**
- * An Interface that Describes the Properties
- * that a User Document Has
- */
+// An interface that describes the properties
+// that a User Document has
 interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
@@ -30,13 +24,13 @@ interface UserDoc extends mongoose.Document {
 const userSchema = new mongoose.Schema(
   {
     email: {
-      type: String, // This Type Related to Mongoose and Built in String Constructor not Typescript
-      required: true,
+      type: String,
+      required: true
     },
     password: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
     toJSON: {
@@ -45,15 +39,15 @@ const userSchema = new mongoose.Schema(
         delete ret._id;
         delete ret.password;
         delete ret.__v;
-      },
-    },
+      }
+    }
   }
 );
 
-userSchema.pre('save', async function (done) {
+userSchema.pre('save', async function(done) {
   if (this.isModified('password')) {
-    const hashedPassword = await Password.toHash(this.get('password'));
-    this.set('password', hashedPassword);
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password', hashed);
   }
   done();
 });

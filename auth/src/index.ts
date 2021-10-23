@@ -1,52 +1,21 @@
-import express, { Request, Response } from 'express';
-import 'express-async-errors';
-import { json } from 'body-parser';
 import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
+import { app } from './app';
 
-import { currentUserRouter } from './routes/current-user';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/NotFoundError';
-
-const app = express();
-app.set('trust proxy', true); // Trust K8S Ingress Nginx Proxy
-app.use(json());
-app.use(
-  cookieSession({
-    signed: false, // Disable Encryption For JWT Because the encryption algorithm is not one for all languages
-    secure: true, // Make Sure that SSL Certf Verification off at Post Man
-  })
-);
-
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
-
-app.all('*', async (req: Request, res: Response) => {
-  throw new NotFoundError();
-});
-
-app.use(errorHandler);
-
-const startServer = async () => {
+const start = async () => {
   if (!process.env.JWT_KEY) {
-    throw new Error('JWT_KEY Must Be Defined');
+    throw new Error('JWT_KEY must be defined');
   }
 
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
-    console.log('DB Connected Successfully ');
+    console.log('Connected to MongoDb');
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 
   app.listen(3000, () => {
-    console.log('Auth Service Listening on Port 3000');
+    console.log('Listening on port 3000!!!!!!!!');
   });
 };
 
-startServer();
+start();
